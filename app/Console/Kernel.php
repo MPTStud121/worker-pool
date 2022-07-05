@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\UpdatePoolJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,9 +14,11 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
-    protected function schedule(Schedule $schedule)
+    protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->job(new UpdatePoolJob())
+            ->timezone('Europe/Moscow')
+            ->daily();
     }
 
     /**
